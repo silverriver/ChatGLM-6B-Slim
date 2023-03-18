@@ -1,13 +1,11 @@
-# ChatGLM-6B
+# ChatGLM-6B-Slim
 
 ## 介绍
+ChatGLM-6B-Slim是在ChatGLM-6B的基础上通过裁剪词表构建的。因为ChatGLM-6B使用了icetk，在其词表中，前20000个token是预留给图片的，在文本模型中没有用到这些图片token，但是在infer和微调的时候，这些token对应的embedding依然需要被加载，并且在解码每一个token的时候需要多计算20K个logits，会占用不少显存。因此将这一部分token裁剪掉以节省显存和计算。
 
-ChatGLM-6B 是一个开源的、支持中英双语的对话语言模型，基于 [General Language Model (GLM)](https://github.com/THUDM/GLM) 架构，具有 62 亿参数。结合模型量化技术，用户可以在消费级的显卡上进行本地部署（INT4 量化级别下最低只需 6GB 显存）。
-ChatGLM-6B 使用了和 ChatGPT 相似的技术，针对中文问答和对话进行了优化。经过约 1T 标识符的中英双语训练，辅以监督微调、反馈自助、人类反馈强化学习等技术的加持，62 亿参数的 ChatGLM-6B 已经能生成相当符合人类偏好的回答。更多信息请参考我们的[博客](https://chatglm.cn/blog)。
+除了词表外，ChatGLM-6B-Slim的其他结构与ChatGLM-6B完全一致，性能也完全一样，可以认为是ChatGLM-6B的一个低显存版等价平替。其使用方式和ChatGLM-6B完全一致，只需要修改加载模型和tokenizer部分的代码。
 
-不过，由于ChatGLM-6B的规模较小，目前已知其具有相当多的[**局限性**](#局限性)，如事实性/数学逻辑错误，可能生成有害/有偏见内容，较弱的上下文能力，自我认知混乱，以及对英文指示生成与中文指示完全矛盾的内容。请大家在使用前了解这些问题，以免产生误解。
-
-*Read this in [English](README_en.md).*
+关于ChatGLM-6B的更多详情请参考官方[repo](https://github.com/THUDM/ChatGLM-6B)
 
 ## 硬件需求
 
@@ -25,12 +23,12 @@ ChatGLM-6B 使用了和 ChatGPT 相似的技术，针对中文问答和对话进
 
 ### 代码调用 
 
-可以通过如下代码调用 ChatGLM-6B 模型来生成对话：
+可以通过如下代码调用 ChatGLM-6B-Slim 模型来生成对话：
 
 ```python
 >>> from transformers import AutoTokenizer, AutoModel
->>> tokenizer = AutoTokenizer.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True)
->>> model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).half().cuda()
+>>> tokenizer = AutoTokenizer.from_pretrained("silver/chatglm-6b-slim", trust_remote_code=True)
+>>> model = AutoModel.from_pretrained("silver/chatglm-6b-slim", trust_remote_code=True).half().cuda()
 >>> response, history = model.chat(tokenizer, "你好", history=[])
 >>> print(response)
 你好👋!我是人工智能助手 ChatGLM-6B,很高兴见到你,欢迎问我任何问题。
@@ -47,11 +45,12 @@ ChatGLM-6B 使用了和 ChatGPT 相似的技术，针对中文问答和对话进
 
 如果这些方法无法帮助你入睡,你可以考虑咨询医生或睡眠专家,寻求进一步的建议。
 ```
-完整的模型实现可以在 [Hugging Face Hub](https://huggingface.co/THUDM/chatglm-6b) 上查看。如果你从Hugging Face Hub上下载checkpoint的速度较慢，也可以从[这里](https://cloud.tsinghua.edu.cn/d/fb9f16d6dc8f482596c2/)手动下载。
+
+ChatGLM-6B-Slim完整的模型实现可以在 [这里](https://huggingface.co/silver/chatglm-6b-slim) 上查看
 
 ### Demo
 
-我们提供了一个基于 [Gradio](https://gradio.app) 的网页版 Demo 和一个命令行 Demo。使用时首先需要下载本仓库：
+ChatGLM-6B官方提供了一个基于 [Gradio](https://gradio.app) 的网页版 Demo 和一个命令行 Demo。使用时首先需要下载本仓库：
 
 ```shell
 git clone https://github.com/THUDM/ChatGLM-6B
