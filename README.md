@@ -5,10 +5,10 @@ ChatGLM-6B-Slim是在ChatGLM-6B的基础上通过裁剪词表构建的。因为C
 
 除了词表外，ChatGLM-6B-Slim的其他结构与ChatGLM-6B完全一致，性能也完全一样，可以认为是ChatGLM-6B的一个低显存版等价平替。其使用方式和ChatGLM-6B完全一致，只需要修改加载模型和tokenizer部分的代码。
 
-关于ChatGLM-6B的更多详情请参考官方[repo](https://github.com/THUDM/ChatGLM-6B)
+关于 ChatGLM-6B 的更多详情请参考官方[repo](https://github.com/THUDM/ChatGLM-6B)
 
 ## 更新信息
-**[2023/03/19]** 增加流式输出接口`stream_chat`，已更新到网页版和命令行demo。修复输出中的中文标点
+**[2023/03/19]** 增加流式输出接口 `stream_chat`，已更新到网页版和命令行 Demo。修复输出中的中文标点。增加量化后的模型 [ChatGLM-6B-INT4-Slim](https://huggingface.co/silver/chatglm-6b-int4-slim)
 
 ## 使用方式
 
@@ -48,10 +48,6 @@ ChatGLM-6B-Slim是在ChatGLM-6B的基础上通过裁剪词表构建的。因为C
 
 如果这些方法无法帮助你入睡,你可以考虑咨询医生或睡眠专家,寻求进一步的建议。
 ```
-
-ChatGLM-6B-Slim完整的模型实现可以在 [这里](https://huggingface.co/silver/chatglm-6b-slim) 查看，相比ChatGLM-6B只修改了和tokenizer有关的部分。
-其他使用方法（demo，量化等）和ChatGLM-6B官方Repo完全一致。
-
 ## 引用
 
 如果你觉得这个工作有帮助的话，请考虑引用下列ChatGLM-6B官方团队的论文
