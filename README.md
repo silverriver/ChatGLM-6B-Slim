@@ -5,6 +5,12 @@ ChatGLM-6B-Slim是在ChatGLM-6B的基础上通过裁剪词表构建的。因为C
 
 除了词表外，ChatGLM-6B-Slim的其他结构与ChatGLM-6B完全一致，性能也完全一样，可以认为是ChatGLM-6B的一个低显存版等价平替。其使用方式和ChatGLM-6B完全一致，只需要修改加载模型和tokenizer部分的代码。
 
+不过，由于 ChatGLM-6B 的规模较小，目前已知其具有相当多的[**局限性**](#局限性)，如事实性/数学逻辑错误，可能生成有害/有偏见内容，较弱的上下文能力，自我认知混乱，以及对英文指示生成与中文指示完全矛盾的内容。请大家在使用前了解这些问题，以免产生误解。更大的基于1300亿参数[GLM-130B](https://github.com/THUDM/GLM-130B)的ChatGLM正在内测开发中。
+
+欢迎体验 Huggingface Spaces 上的[在线演示](https://huggingface.co/spaces/ysharma/ChatGLM-6b_Gradio_Streaming)。
+
+
+*Read this in [English](README_en.md).*
 关于 ChatGLM-6B 的更多详情请参考官方[repo](https://github.com/THUDM/ChatGLM-6B)
 
 ## 更新信息
