@@ -97,7 +97,7 @@ python cli_demo.py
 
 ```python
 # 按需修改，目前只支持 4/8 bit 量化
-model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).half().quantize(4).cuda()
+model = AutoModel.from_pretrained("silver/chatglm-6b-slim", trust_remote_code=True).half().quantize(4).cuda()
 ```
 
 进行 2 至 3 轮对话后，8-bit 量化下 GPU 显存占用约为 10GB，4-bit 量化下仅需 6GB 占用。随着对话轮数的增多，对应消耗显存也随之增长，由于采用了相对位置编码，理论上 ChatGLM-6B 支持无限长的 context-length，但总长度超过 2048（训练长度）后性能会逐渐下降。
@@ -106,18 +106,18 @@ model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).ha
 
 **[2023/03/19]** 量化过程需要在内存中首先加载 FP16 格式的模型，消耗大概 13GB 的内存。如果你的内存不足的话，可以直接加载量化后的模型，仅需大概 5.2GB 的内存：
 ```python
-model = AutoModel.from_pretrained("THUDM/chatglm-6b-int4", trust_remote_code=True).half().cuda()
+model = AutoModel.from_pretrained("silver/chatglm-6b-int4-slim", trust_remote_code=True).half().cuda()
 ```
 
 ### CPU 部署
 如果你没有 GPU 硬件的话，也可以在 CPU 上进行推理，但是推理速度会更慢。使用方法如下（需要大概 32GB 内存）
 ```python
-model = AutoModel.from_pretrained("THUDM/chatglm-6b", trust_remote_code=True).float()
+model = AutoModel.from_pretrained("silver/chatglm-6b-slim", trust_remote_code=True).float()
 ```
 
 **[2023/03/19]** 如果你的内存不足，可以直接加载量化后的模型：
 ```python
-model = AutoModel.from_pretrained("THUDM/chatglm-6b-int4",trust_remote_code=True).float()
+model = AutoModel.from_pretrained("silver/chatglm-6b-int4-slim",trust_remote_code=True).float()
 ```
 
 如果遇到了报错 `Could not find module 'nvcuda.dll'` 或者 `RuntimeError: Unknown platform: darwin` (MacOS) 的话请参考这个[Issue](https://github.com/THUDM/ChatGLM-6B/issues/6#issuecomment-1470060041).
