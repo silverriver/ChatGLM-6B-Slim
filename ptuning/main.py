@@ -178,9 +178,9 @@ def main():
                 if len(b_ids) > data_args.max_target_length - 2:
                     b_ids = b_ids[: data_args.max_target_length - 2]
 
-                input_ids = a_ids + [150001, 150004] + b_ids + [150005]
+                input_ids = a_ids + [130001, 130004] + b_ids + [130005]
 
-                context_length = input_ids.index(150004)
+                context_length = input_ids.index(130004)
                 mask_position = context_length - 1
                 labels = [-100] * context_length + input_ids[mask_position+1:]
                 
